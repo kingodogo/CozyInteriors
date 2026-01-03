@@ -31,10 +31,8 @@ if ($FilePath -match "Versions\\([^\\]+)\\.*") {
     $relativePath = $FilePath -replace "Versions\\$version\\", ""
     $targetPath = $relativePath
     
-    if (Test-Path (Split-Path $targetPath -Parent)) {
-        $targetDir = Split-Path $targetPath -Parent
-    } else {
-        $targetDir = Split-Path $targetPath -Parent
+    $targetDir = Split-Path $targetPath -Parent
+    if ($targetDir -and -not (Test-Path $targetDir)) {
         New-Item -ItemType Directory -Force -Path $targetDir | Out-Null
     }
     
@@ -54,4 +52,3 @@ if ($FilePath -match "Versions\\([^\\]+)\\.*") {
     git commit -m $CommitMessage
     git push origin Dev
 }
-
