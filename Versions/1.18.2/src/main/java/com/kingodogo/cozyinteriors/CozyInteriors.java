@@ -1,5 +1,6 @@
 package com.kingodogo.cozyinteriors;
 
+import com.kingodogo.cozyinteriors.blocks.ModBlocks;
 import com.mojang.logging.LogUtils;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.MinecraftForge;
@@ -17,6 +18,7 @@ public class CozyInteriors {
     private static final Logger LOGGER = LogUtils.getLogger();
 
     public CozyInteriors() {
+        ModBlocks.register(FMLJavaModLoadingContext.get().getModEventBus());
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         MinecraftForge.EVENT_BUS.register(this);
     }
