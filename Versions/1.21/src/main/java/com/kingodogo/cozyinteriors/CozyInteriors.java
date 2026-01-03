@@ -17,7 +17,10 @@ public class CozyInteriors {
     public static final String MOD_ID = "cozyinteriors";
     private static final Logger LOGGER = LogUtils.getLogger();
 
+    public static final net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext MOD_EVENT_BUS = FMLJavaModLoadingContext.get();
+
     public CozyInteriors() {
+        ModBlocks.register();
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         MinecraftForge.EVENT_BUS.register(this);
     }
