@@ -36,6 +36,7 @@ if ($FilePath -match "Versions[\\/]([^\\/]+)[\\/].*") {
         New-Item -ItemType Directory -Force -Path $targetDir | Out-Null
     }
     
+    git checkout Dev -- $FilePath
     Copy-Item -Path $FilePath -Destination $targetPath -Force
     
     git add $targetPath
