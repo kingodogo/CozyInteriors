@@ -16,11 +16,23 @@ rootProject.name = 'cozyinteriors'
 
 include 'Versions:1.18.2'
 include 'Versions:1.19'
-include 'Versions:1.20.x'
-include 'Versions:1.21.x'
+include 'Versions:1.20.1'
+include 'Versions:1.20.2'
+include 'Versions:1.20.3'
+include 'Versions:1.20.4'
+include 'Versions:1.20.5'
+include 'Versions:1.20.6'
+include 'Versions:1.21'
+include 'Versions:1.21.1'
 
 project(':Versions:1.18.2').projectDir = file('Versions/1.18.2')
 project(':Versions:1.19').projectDir = file('Versions/1.19')
-project(':Versions:1.20.x').projectDir = file('Versions/1.20.x')
-project(':Versions:1.21.x').projectDir = file('Versions/1.21.x')
+project(':Versions:1.20.1').projectDir = file('Versions/1.20.1')
+project(':Versions:1.20.2').projectDir = file('Versions/1.20.2')
+project(':Versions:1.20.3').projectDir = file('Versions/1.20.3')
+project(':Versions:1.20.4').projectDir = file('Versions/1.20.4')
+project(':Versions:1.20.5').projectDir = file('Versions/1.20.5')
+project(':Versions:1.20.6').projectDir = file('Versions/1.20.6')
+project(':Versions:1.21').projectDir = file('Versions/1.21')
+project(':Versions:1.21.1').projectDir = file('Versions/1.21.1')
 
