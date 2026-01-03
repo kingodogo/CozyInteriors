@@ -8,7 +8,7 @@ param(
 
 $currentBranch = git branch --show-current
 
-if ($FilePath -match "Versions\\([^\\]+)\\.*") {
+if ($FilePath -match "Versions[\\/]([^\\/]+)[\\/].*") {
     $version = $matches[1]
     
     Write-Host "Detected version: $version"
@@ -28,7 +28,7 @@ if ($FilePath -match "Versions\\([^\\]+)\\.*") {
         git checkout $version
     }
     
-    $relativePath = $FilePath -replace "Versions\\$version\\", ""
+    $relativePath = $FilePath -replace "Versions[\\/]$version[\\/]", ""
     $targetPath = $relativePath
     
     $targetDir = Split-Path $targetPath -Parent
@@ -39,7 +39,8 @@ if ($FilePath -match "Versions\\([^\\]+)\\.*") {
     Copy-Item -Path $FilePath -Destination $targetPath -Force
     
     git add $targetPath
-    git commit -m ($CommitMessage -replace "Versions\\$version\\", "")
+    $versionCommitMsg = $CommitMessage -replace "Versions[\\/]$version[\\/]", ""
+    git commit -m $versionCommitMsg
     git push origin $version
     
     Write-Host "Switching back to Dev"
