@@ -1,2 +1,0 @@
-# CozyInteriors
-Cozy Interiors
