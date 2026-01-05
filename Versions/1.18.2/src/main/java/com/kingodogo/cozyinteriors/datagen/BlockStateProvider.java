@@ -5,9 +5,9 @@ import com.kingodogo.cozyinteriors.compat.WoodTypeDetector;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Set;
 
@@ -22,15 +22,18 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
         
         for (String woodType : woodTypes) {
             String chairName = woodType + "_chair";
-            ResourceLocation chairId = modLoc("block/chairs/" + chairName);
+            ResourceLocation chairId = ResourceLocation.tryParse(CozyInteriors.MOD_ID + ":" + chairName);
+            Block chairBlock = ForgeRegistries.BLOCKS.getValue(chairId);
             
-            ModelFile chairModel = models().getBuilder("block/chairs/" + chairName)
-                .parent(new ModelFile.UncheckedModelFile("block/block"))
-                .texture("planks", getPlanksTexture(woodType))
-                .texture("logs", getLogsTexture(woodType))
-                .texture("particle", getPlanksTexture(woodType));
-            
-            simpleBlock(modLoc(chairName), chairModel);
+            if (chairBlock != null) {
+                ModelFile chairModel = models().getBuilder("block/chairs/" + chairName)
+                    .parent(new ModelFile.UncheckedModelFile("block/block"))
+                    .texture("planks", getPlanksTexture(woodType))
+                    .texture("logs", getLogsTexture(woodType))
+                    .texture("particle", getPlanksTexture(woodType));
+                
+                simpleBlock(chairBlock, chairModel);
+            }
         }
     }
 
@@ -42,7 +45,7 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
         if (!woodType.startsWith("minecraft:")) {
             namespace = "cozyinteriors";
         }
-        return new ResourceLocation(namespace, "block/" + woodType + "_planks");
+        return ResourceLocation.tryParse(namespace + ":block/" + woodType + "_planks");
     }
 
     private ResourceLocation getLogsTexture(String woodType) {
