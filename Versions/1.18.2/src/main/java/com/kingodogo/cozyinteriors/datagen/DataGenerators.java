@@ -3,7 +3,7 @@ package com.kingodogo.cozyinteriors.datagen;
 import com.kingodogo.cozyinteriors.CozyInteriors;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.data.event.GatherDataEvent;
+import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -14,10 +14,11 @@ public class DataGenerators {
         DataGenerator generator = event.getGenerator();
         ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
 
-        generator.addProvider(event.includeServer(), new BlockStateProvider(generator, existingFileHelper));
-        generator.addProvider(event.includeServer(), new ItemModelProvider(generator, existingFileHelper));
-        generator.addProvider(event.includeServer(), new RecipeProvider(generator));
-        generator.addProvider(event.includeServer(), new LootTableProvider(generator));
+        generator.addProvider(new BlockStateProvider(generator, existingFileHelper));
+        generator.addProvider(new ItemModelProvider(generator, existingFileHelper));
+        generator.addProvider(new RecipeProvider(generator));
+        // TODO: Fix ModLootTableProvider - API differs in Forge 1.18.2
+        // generator.addProvider(new ModLootTableProvider(generator));
     }
 }
 
