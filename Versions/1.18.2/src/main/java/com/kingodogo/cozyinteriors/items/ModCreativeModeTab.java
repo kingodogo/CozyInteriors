@@ -1,4 +1,4 @@
-﻿package com.kingodogo.cozyinteriors.items;
+package com.kingodogo.cozyinteriors.items;
 
 import com.kingodogo.cozyinteriors.CozyInteriors;
 import net.minecraft.world.item.CreativeModeTab;
@@ -13,3 +13,4 @@ public class ModCreativeModeTab {
         }
     };
 }
+
