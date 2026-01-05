@@ -15,44 +15,47 @@ plugins {
 rootProject.name = 'cozyinteriors'
 
 include 'Versions:1.18.2'
-include 'Versions:1.19'
-include 'Versions:1.20.1'
-include 'Versions:1.20.2'
-include 'Versions:1.20.3'
-include 'Versions:1.20.4'
-include 'Versions:1.20.5'
-include 'Versions:1.20.6'
-include 'Versions:1.21'
-include 'Versions:1.21.1'
-include 'Versions:1.21.2'
-include 'Versions:1.21.3'
-include 'Versions:1.21.4'
-include 'Versions:1.21.5'
-include 'Versions:1.21.6'
-include 'Versions:1.21.7'
-include 'Versions:1.21.8'
-include 'Versions:1.21.9'
-include 'Versions:1.21.10'
-include 'Versions:1.21.11'
+// Temporarily disabled other versions to avoid dependency resolution issues
+// Uncomment as needed when working on those versions
+// include 'Versions:1.19'
+// include 'Versions:1.20.1'
+// include 'Versions:1.20.2'
+// include 'Versions:1.20.3'
+// include 'Versions:1.20.4'
+// include 'Versions:1.20.5'
+// include 'Versions:1.20.6'
+// include 'Versions:1.21'
+// include 'Versions:1.21.1'
+// include 'Versions:1.21.2'
+// include 'Versions:1.21.3'
+// include 'Versions:1.21.4'
+// include 'Versions:1.21.5'
+// include 'Versions:1.21.6'
+// include 'Versions:1.21.7'
+// include 'Versions:1.21.8'
+// include 'Versions:1.21.9'
+// include 'Versions:1.21.10'
+// include 'Versions:1.21.11'
 
 project(':Versions:1.18.2').projectDir = file('Versions/1.18.2')
-project(':Versions:1.19').projectDir = file('Versions/1.19')
-project(':Versions:1.20.1').projectDir = file('Versions/1.20.1')
-project(':Versions:1.20.2').projectDir = file('Versions/1.20.2')
-project(':Versions:1.20.3').projectDir = file('Versions/1.20.3')
-project(':Versions:1.20.4').projectDir = file('Versions/1.20.4')
-project(':Versions:1.20.5').projectDir = file('Versions/1.20.5')
-project(':Versions:1.20.6').projectDir = file('Versions/1.20.6')
-project(':Versions:1.21').projectDir = file('Versions/1.21')
-project(':Versions:1.21.1').projectDir = file('Versions/1.21.1')
-project(':Versions:1.21.2').projectDir = file('Versions/1.21.2')
-project(':Versions:1.21.3').projectDir = file('Versions/1.21.3')
-project(':Versions:1.21.4').projectDir = file('Versions/1.21.4')
-project(':Versions:1.21.5').projectDir = file('Versions/1.21.5')
-project(':Versions:1.21.6').projectDir = file('Versions/1.21.6')
-project(':Versions:1.21.7').projectDir = file('Versions/1.21.7')
-project(':Versions:1.21.8').projectDir = file('Versions/1.21.8')
-project(':Versions:1.21.9').projectDir = file('Versions/1.21.9')
-project(':Versions:1.21.10').projectDir = file('Versions/1.21.10')
-project(':Versions:1.21.11').projectDir = file('Versions/1.21.11')
+// Temporarily disabled other versions - uncomment as needed
+// project(':Versions:1.19').projectDir = file('Versions/1.19')
+// project(':Versions:1.20.1').projectDir = file('Versions/1.20.1')
+// project(':Versions:1.20.2').projectDir = file('Versions/1.20.2')
+// project(':Versions:1.20.3').projectDir = file('Versions/1.20.3')
+// project(':Versions:1.20.4').projectDir = file('Versions/1.20.4')
+// project(':Versions:1.20.5').projectDir = file('Versions/1.20.5')
+// project(':Versions:1.20.6').projectDir = file('Versions/1.20.6')
+// project(':Versions:1.21').projectDir = file('Versions/1.21')
+// project(':Versions:1.21.1').projectDir = file('Versions/1.21.1')
+// project(':Versions:1.21.2').projectDir = file('Versions/1.21.2')
+// project(':Versions:1.21.3').projectDir = file('Versions/1.21.3')
+// project(':Versions:1.21.4').projectDir = file('Versions/1.21.4')
+// project(':Versions:1.21.5').projectDir = file('Versions/1.21.5')
+// project(':Versions:1.21.6').projectDir = file('Versions/1.21.6')
+// project(':Versions:1.21.7').projectDir = file('Versions/1.21.7')
+// project(':Versions:1.21.8').projectDir = file('Versions/1.21.8')
+// project(':Versions:1.21.9').projectDir = file('Versions/1.21.9')
+// project(':Versions:1.21.10').projectDir = file('Versions/1.21.10')
+// project(':Versions:1.21.11').projectDir = file('Versions/1.21.11')
 
