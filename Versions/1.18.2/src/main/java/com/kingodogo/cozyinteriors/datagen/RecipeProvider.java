@@ -4,7 +4,6 @@ import com.kingodogo.cozyinteriors.CozyInteriors;
 import com.kingodogo.cozyinteriors.compat.WoodTypeDetector;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
@@ -25,7 +24,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider im
         
         for (String woodType : woodTypes) {
             ItemLike planks = getPlanksForWood(woodType);
-            ResourceLocation chairId = new ResourceLocation(CozyInteriors.MOD_ID, woodType + "_chair");
+            ResourceLocation chairId = ResourceLocation.tryParse(CozyInteriors.MOD_ID + ":" + woodType + "_chair");
             
             ShapedRecipeBuilder.shaped(net.minecraftforge.registries.ForgeRegistries.ITEMS.getValue(chairId), 1)
                 .pattern("S  ")
@@ -39,6 +38,8 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider im
     }
 
     private ItemLike getPlanksForWood(String woodType) {
+        // Note: mangrove, cherry, and bamboo planks don't exist in Minecraft 1.18.2
+        // They were added in 1.19+. Using oak as fallback for these.
         return switch (woodType) {
             case "oak" -> Items.OAK_PLANKS;
             case "spruce" -> Items.SPRUCE_PLANKS;
@@ -46,9 +47,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider im
             case "jungle" -> Items.JUNGLE_PLANKS;
             case "acacia" -> Items.ACACIA_PLANKS;
             case "dark_oak" -> Items.DARK_OAK_PLANKS;
-            case "mangrove" -> Items.MANGROVE_PLANKS;
-            case "cherry" -> Items.CHERRY_PLANKS;
-            case "bamboo" -> Items.BAMBOO_PLANKS;
+            case "mangrove", "cherry", "bamboo" -> Items.OAK_PLANKS; // Fallback for 1.19+ wood types
             default -> Items.OAK_PLANKS;
         };
     }
