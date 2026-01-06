@@ -1,51 +1,73 @@
 package com.kingodogo.cozyinteriors.blocks;
 
 import com.kingodogo.cozyinteriors.CozyInteriors;
+import com.kingodogo.cozyinteriors.items.ModCreativeModeTab;
+import com.mojang.logging.LogUtils;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
+import org.slf4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Mod.EventBusSubscriber(modid = CozyInteriors.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModBlocks {
-    private static final Map<String, Block> CHAIR_BLOCKS = new HashMap<>();
-    private static final Map<String, Item> CHAIR_ITEMS = new HashMap<>();
+    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, CozyInteriors.MOD_ID);
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, CozyInteriors.MOD_ID);
+    
+    public static final Map<String, RegistryObject<Block>> CHAIR_BLOCKS = new HashMap<>();
+    public static final Map<String, RegistryObject<Item>> CHAIR_ITEMS = new HashMap<>();
+
 
     public static void registerChair(String woodType) {
         String blockId = woodType + "_chair";
-        Block block = new ChairBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0f));
+        LOGGER.debug("Registering chair block: {}", blockId);
+        
+        // Register block first
+        RegistryObject<Block> block = BLOCKS.register(blockId, () -> {
+            LOGGER.debug("Creating ChairBlock instance for: {}", blockId);
+            return new ChairBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0f));
+        });
         CHAIR_BLOCKS.put(blockId, block);
         
-        Item item = new BlockItem(block, new Item.Properties().tab(CreativeModeTab.TAB_DECORATIONS));
+        // Register item - the supplier will be called after blocks are registered
+        final RegistryObject<Block> blockRef = block; // Final reference for lambda
+        RegistryObject<Item> item = ITEMS.register(blockId, () -> {
+            LOGGER.debug("Creating BlockItem for: {}", blockId);
+            // Get the block from the RegistryObject - this will only be called after blocks are registered
+            Block blockInstance = blockRef.get();
+            return new BlockItem(blockInstance, new Item.Properties().tab(ModCreativeModeTab.COZY_INTERIORS_TAB));
+        });
         CHAIR_ITEMS.put(blockId, item);
-    }
-
-    @SubscribeEvent
-    public static void onBlocksRegistry(final RegistryEvent.Register<Block> event) {
-        for (Map.Entry<String, Block> entry : CHAIR_BLOCKS.entrySet()) {
-            entry.getValue().setRegistryName(CozyInteriors.MOD_ID, entry.getKey());
-            event.getRegistry().register(entry.getValue());
-        }
-    }
-
-    @SubscribeEvent
-    public static void onItemsRegistry(final RegistryEvent.Register<Item> event) {
-        for (Map.Entry<String, Item> entry : CHAIR_ITEMS.entrySet()) {
-            entry.getValue().setRegistryName(CozyInteriors.MOD_ID, entry.getKey());
-            event.getRegistry().register(entry.getValue());
-        }
+        
+        LOGGER.debug("Registered chair: {} (block and item)", blockId);
     }
 
     public static Block getChair(String woodType) {
+        RegistryObject<Block> block = CHAIR_BLOCKS.get(woodType + "_chair");
+        if (block == null) {
+            return null;
+        }
+        // Only get the block if it's actually registered (not null and has registry name)
+        try {
+            Block blockInstance = block.get();
+            if (blockInstance != null && blockInstance.getRegistryName() != null) {
+                return blockInstance;
+            }
+        } catch (Exception e) {
+            LOGGER.warn("Error getting chair block for {}: {}", woodType, e.getMessage());
+        }
+        return null;
+    }
+    
+    public static RegistryObject<Block> getChairRegistryObject(String woodType) {
         return CHAIR_BLOCKS.get(woodType + "_chair");
     }
 }
