@@ -24,12 +24,20 @@ public class WoodTypeDetector {
 
         for (Block block : ForgeRegistries.BLOCKS) {
             ResourceLocation id = block.getRegistryName();
-            if (id != null && !id.getNamespace().equals("minecraft")) {
-                String path = id.getPath();
-                if (path.endsWith("_planks") || path.endsWith("_logs") || path.endsWith("_stairs")) {
-                    String woodType = path.replace("_planks", "").replace("_logs", "").replace("_stairs", "");
-                    if (!woodType.isEmpty()) {
-                        woodTypes.add(woodType);
+            if (id != null) {
+                // Parse namespace from ResourceLocation string (safer for 1.18.2)
+                String idString = id.toString();
+                int colonIndex = idString.indexOf(':');
+                if (colonIndex > 0) {
+                    String namespace = idString.substring(0, colonIndex);
+                    if (!namespace.equals("minecraft")) {
+                        String path = id.getPath();
+                        if (path.endsWith("_planks") || path.endsWith("_logs") || path.endsWith("_stairs")) {
+                            String woodType = path.replace("_planks", "").replace("_logs", "").replace("_stairs", "");
+                            if (!woodType.isEmpty()) {
+                                woodTypes.add(woodType);
+                            }
+                        }
                     }
                 }
             }
