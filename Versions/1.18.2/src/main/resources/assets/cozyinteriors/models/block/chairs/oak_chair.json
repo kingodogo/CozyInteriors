@@ -1,0 +1,8 @@
+{
+  "parent": "cozyinteriors:block/chairs/template_chair",
+  "textures": {
+    "planks": "minecraft:block/oak_planks",
+    "logs": "minecraft:block/oak_log",
+    "particle": "minecraft:block/oak_planks"
+  }
+}

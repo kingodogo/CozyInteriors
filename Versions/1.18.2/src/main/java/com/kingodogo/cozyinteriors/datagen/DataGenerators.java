@@ -11,14 +11,12 @@ import net.minecraftforge.fml.common.Mod;
 public class DataGenerators {
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {
-        DataGenerator generator = event.getGenerator();
-        ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
+        DataGenerator gen = event.getGenerator();
+        ExistingFileHelper efh = event.getExistingFileHelper();
 
-        generator.addProvider(new BlockStateProvider(generator, existingFileHelper));
-        generator.addProvider(new ItemModelProvider(generator, existingFileHelper));
-        generator.addProvider(new RecipeProvider(generator));
-        // TODO: Fix ModLootTableProvider - API differs in Forge 1.18.2
-        // generator.addProvider(new ModLootTableProvider(generator));
+        gen.addProvider(new BlockStateProvider(gen, efh));
+        gen.addProvider(new RecipeProvider(gen));
+        gen.addProvider(new ModLanguageProvider(gen, "en_us"));
     }
 }
 

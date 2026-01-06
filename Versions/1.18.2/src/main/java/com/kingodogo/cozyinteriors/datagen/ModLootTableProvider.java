@@ -55,7 +55,18 @@ public class ModLootTableProvider extends LootTableProvider {
         @Override
         protected Iterable<Block> getKnownBlocks() {
             return ForgeRegistries.BLOCKS.getValues().stream()
-                .filter(block -> block.getRegistryName() != null && block.getRegistryName().getNamespace().equals(CozyInteriors.MOD_ID))
+                .filter(block -> {
+                    ResourceLocation id = block.getRegistryName();
+                    if (id == null) return false;
+                    // Parse namespace from ResourceLocation string (safer for 1.18.2)
+                    String idString = id.toString();
+                    int colonIndex = idString.indexOf(':');
+                    if (colonIndex > 0) {
+                        String namespace = idString.substring(0, colonIndex);
+                        return namespace.equals(CozyInteriors.MOD_ID);
+                    }
+                    return false;
+                })
                 ::iterator;
         }
 
